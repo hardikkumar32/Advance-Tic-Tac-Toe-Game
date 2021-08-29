@@ -1,0 +1,145 @@
+*,*::after,*::before{
+    box-sizing: border-box;
+}
+:root{
+    --cell-size: 100px;
+    --mark-size: calc(var(--cell-size)*.9)
+}
+body{
+    margin: 0;
+    padding:0;
+    font-family: 'PT Sans', sans-serif;
+}
+.board{
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    /* justify-items: center;
+    align-items: center; */
+    grid-template-columns: repeat(3,auto);
+}
+.cell{
+    width: var(--cell-size);
+    height: var(--cell-size);
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+}
+.cell:first-child,
+.cell:nth-child(2),
+.cell:nth-child(3){
+    border-top: none;
+}
+.cell:nth-of-type(3n+1){
+    border-left: none;
+}
+.cell:nth-of-type(3n){
+    border-right: none;
+}
+.cell:last-child,
+.cell:nth-child(7),
+.cell:nth-child(8){
+    border-bottom: none;
+}
+.board.x .cell:not(.x):not(.circle):hover::before{
+    content: '';
+    width: calc(var(--mark-size)*0.15);
+    height: var(--mark-size);
+    background-color:lightgray;
+    transform: rotate(45deg);
+    position: absolute;
+} 
+.board.x .cell:not(.x):not(.circle):hover::after{
+    content: '';
+    width: calc(var(--mark-size)*0.15);
+    height: var(--mark-size);
+    background-color:lightgray;
+    transform: rotate(-45deg);
+    position: absolute;
+}
+.board.circle .cell:not(.x):not(.circle):hover::before,
+.board.circle .cell:not(.x):not(.circle):hover::after{
+    content: '';
+    width: var(--mark-size);
+    height: var(--mark-size);
+    position: absolute;
+    border-radius: 50%;
+}
+.board.circle .cell:not(.x):not(.circle):hover::before{
+    width: var(--mark-size);
+    height: var(--mark-size);
+    background-color: lightgray;
+}
+.board.circle .cell:not(.x):not(.circle):hover:after{
+    width: calc(var(--mark-size)*0.7);
+    height: calc(var(--mark-size)*0.7);
+    background-color: white;
+}
+.cell.x::before{
+    content: '';
+    width: calc(var(--mark-size)*0.15);
+    height: var(--mark-size);
+    background-color: black;
+    transform: rotate(45deg);
+    position: absolute;
+} 
+.cell.x::after{
+    content: '';
+    width: calc(var(--mark-size)*0.15);
+    height: var(--mark-size);
+    background-color: black;
+    transform: rotate(-45deg);
+    position: absolute;
+}
+.cell.circle::before,
+.cell.circle::after{
+    content: '';
+    width: var(--mark-size);
+    height: var(--mark-size);
+    background-color: black;
+    position: absolute;
+    border-radius: 50%;
+}
+.cell.circle::before{
+    width: var(--mark-size);
+    height: var(--mark-size);
+    background-color: black;
+}
+.cell.circle::after{
+    width: calc(var(--mark-size)*0.7);
+    height: calc(var(--mark-size)*0.7);
+    background-color: white;
+}
+.winning-message{
+    display: none;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0,0,0,.9);
+    /* display: flex; */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: cornsilk;
+    font-size: 5rem;
+}
+#restartButton{
+    font-size: 2.5rem;
+    border-radius: 7px;
+    margin-top: 5px;
+    cursor: pointer;
+}
+#restartButton:hover{
+    color: white;
+    background-color: black;
+}
+.winning-message.show{
+    display: flex;
+}
